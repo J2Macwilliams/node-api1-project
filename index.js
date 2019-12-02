@@ -7,6 +7,8 @@ server.use(express.json());
 
 const db = require('./data/db');
 
+// POST to db -------------------------------------
+
 server.post('/api/users', (req, res) => {
     const dbInfo = req.body;
 
@@ -30,6 +32,8 @@ server.post('/api/users', (req, res) => {
         });
 })
 
+// GET from db----------------------------------------
+
 server.get('/api/users', (req, res) => {
     db.find()
         .then(data => {
@@ -44,6 +48,13 @@ server.get('/api/users', (req, res) => {
         });
 });
 
+// GET by id from db -----------------------------------
+
+server.get('/api/users/:id', (req, res) => {
+    db.findById()
+    .then()
+    .catch()
+})
 
 
 
