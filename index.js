@@ -5,7 +5,11 @@ const server = express();
 
 server.use(express.json());
 
+const db = require('./data/db');
 
+server.get('/api/users', (req, res) => {
+db.find().then().catch()
+})
 
 
 
