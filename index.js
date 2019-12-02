@@ -76,22 +76,50 @@ server.delete('/api/users/:id', (req, res) => {
     const id = req.params.id;
 
     db.remove(id)
-    .then(gone => {
-        if (gone) {
-            res.status(200).json({message: "The user was deleted", gone})
-        } else {
-            res.status(404).json({ message: "The user with the specified ID does not exist." })
-        }
-    })
-    .catch(error => {
-        console.log('error on DELETE /api/users/:id', error)
-        res
-            .end()
-            .status(500)
-            .json({ error: "The user could not be removed." })
-    });
+        .then(gone => {
+            if (gone) {
+                res.status(200).json({ message: "The user was deleted", gone })
+            } else {
+                res.status(404).json({ message: "The user with the specified ID does not exist." })
+            }
+        })
+        .catch(error => {
+            console.log('error on DELETE /api/users/:id', error)
+            res
+                .end()
+                .status(500)
+                .json({ error: "The user could not be removed." })
+        });
 })
 
+// PUT by id from db---------------------------------------------
+
+server.put('/api/users/:id', (req, res) => {
+    const id = req.params.id;
+    const dbInfo = req.body;
+
+    db.update(id)
+        .then(found => {
+            if (found) {
+                res.status(200).json(dbInfo)
+            } else if (dbInfo !== "name" && "bio") {
+                res
+                .end()
+                .status(400)
+                .json({ errorMessage: "Please provide name and bio for the user." })
+
+            } else {
+                res.status(404).json({ message: "The user with the specified ID does not exist." })
+            }
+        })
+        .catch(error => {
+            console.log('error on PUT /api/users/:id', error)
+            res
+                .end()
+                .status(500)
+                .json({ error: "The user information could not be modified." })
+        });
+})
 
 
 const port = 5000
