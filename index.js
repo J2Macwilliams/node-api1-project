@@ -16,8 +16,7 @@ server.post('/api/users', (req, res) => {
         .then(info => {
             res.status(201).json(info)
         })
-        .catch(error => {
-            console.log('error on the POST /api/users', error)
+        .catch(() => {
             if (dbInfo !== "name" && "bio") {
                 res
                     .status(400)
@@ -37,8 +36,7 @@ server.get('/api/users', (req, res) => {
         .then(data => {
             res.status(200).json(data)
         })
-        .catch(error => {
-            console.log('error on GET /api/users', error)
+        .catch(() => {
             res
                 .status(500)
                 .json({ error: "The users information could not be retrieved." })
@@ -58,8 +56,7 @@ server.get('/api/users/:id', (req, res) => {
                 res.status(404).json({ message: "The user with the specified ID does not exist." })
             }
         })
-        .catch(error => {
-            console.log('error on GET /api/users/:id', error)
+        .catch(() => {
             res
                 .status(500)
                 .json({ error: "The user information could not be retrieved." })
@@ -79,8 +76,7 @@ server.delete('/api/users/:id', (req, res) => {
                 res.status(404).json({ message: "The user with the specified ID does not exist." })
             }
         })
-        .catch(error => {
-            console.log('error on DELETE /api/users/:id', error)
+        .catch(() => {
             res
                 .status(500)
                 .json({ error: "The user could not be removed." })
@@ -106,8 +102,7 @@ server.put('/api/users/:id', (req, res) => {
                     res.status(404).json({ message: "The user with the specified ID does not exist." })
                 }
             })
-            .catch(error => {
-                console.log(`error on PUT /api/users/${id}`, error)
+            .catch(() => {
                 res
                     .status(500)
                     .json({ error: "The user information could not be modified." })
