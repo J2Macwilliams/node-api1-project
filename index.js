@@ -107,13 +107,13 @@ server.put('/api/users/:id', (req, res) => {
         db.update(id, dbInfo)
             .then(user => {
                 if (user) {
-                    res.status(200).json({ message: `The user was updated with ${dbInfo.name} ${dbInfo.bio}` })
+                    res.status(200).json({ message: `Updated with ${dbInfo.name} ${dbInfo.bio}` })
                 } else {
                     res.status(404).json({ message: "The user with the specified ID does not exist." })
                 }
             })
             .catch(error => {
-                console.log('error on PUT /api/users/:id', error)
+                console.log(`error on PUT /api/users/${id}`, error)
                 res
                     .end()
                     .status(500)
